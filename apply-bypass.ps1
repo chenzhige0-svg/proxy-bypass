@@ -31,7 +31,8 @@ $domains = @(
   "baidu.com","bdstatic.com","sohu.com","58.com","kuaishou.com","gifshow.com",
   "douban.com","doubanio.com","huawei.com","hicloud.com","mi.com","miui.com","xiaomi.com",
   "autodl.com",
-  "gpugeek.com"
+  "gpugeek.com",
+  "guobinquan.com"
 )
 
 # 裸主机（IP 或精确域名）：原样写入两处，不加 . 前缀也不加 *. 通配
