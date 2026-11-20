@@ -32,7 +32,9 @@ $domains = @(
   "douban.com","doubanio.com","huawei.com","hicloud.com","mi.com","miui.com","xiaomi.com",
   "autodl.com",
   "gpugeek.com",
-  "guobinquan.com"
+  "guobinquan.com",
+  "tiaozhanbei.net",
+  "sxstczx.com"
 )
 
 # 裸主机（IP 或精确域名）：原样写入两处，不加 . 前缀也不加 *. 通配
@@ -40,13 +42,14 @@ $hosts = @(
   # "10.0.0.12"
 )
 
-# 本机私货：同目录放 local-extra.ps1（已在 .gitignore 里），里面写
-#   $extraDomains = @("example.com")
-#   $extraHosts   = @("172.16.0.10")
+# 本机私货：优先读脚本同目录的 local-extra.ps1，没有就读
+# %LOCALAPPDATA%\proxy-bypass\local-extra.ps1。后者保证从仓库目录直接跑也不会丢本机配置。
 $extraDomains = @()
 $extraHosts   = @()
-$localExtra = Join-Path $here "local-extra.ps1"
-if (Test-Path $localExtra) { . $localExtra }
+foreach ($p in @((Join-Path $here "local-extra.ps1"),
+                 (Join-Path $env:LOCALAPPDATA "proxy-bypass\local-extra.ps1"))) {
+  if (Test-Path $p) { . $p; break }
+}
 
 $domains = @($domains) + @($extraDomains)
 $hosts   = @($hosts)   + @($extraHosts)
